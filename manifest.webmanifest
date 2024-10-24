@@ -9,9 +9,9 @@
   "display": "standalone", 
   "icons": [
       {
-        "src": "/WalkingApp/img/icon.png",
+        "src": "/WalkingApp/icon.png",
         "type": "image/png",
-        "sizes": "700x700"
+        "sizes": "512x512"
       }
   ]
 }
