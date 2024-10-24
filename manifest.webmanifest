@@ -1,6 +1,6 @@
 {
-  "name": "Github Page PWA",
-  "short_name": "GPPWA",
+  "name": "Boot",
+  "short_name": "BOOT",
   "description": "Github Page as a Progressive Web App",
   "scope": "/WalkingApp/",
   "start_url": "/WalkingApp/",
