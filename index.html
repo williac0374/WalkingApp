@@ -96,6 +96,12 @@
 
         // Request wake lock to keep the screen on
         requestWakeLock();
+      // Set a timeout to wait for 5 seconds (5000 milliseconds)
+setTimeout(function() {
+    // This will run after 5 seconds
+    releaseWakeLock();
+}, 5000); // 5000 milliseconds = 5 seconds
+
     }
 
     // Function to hide the overlay but keep fullscreen
