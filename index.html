@@ -7,16 +7,48 @@
   <link rel="canonical" href="https://williac0374.github.io/WalkingApp/" />
   <link rel="manifest" href="/WalkingApp/manifest.webmanifest">
   <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Basic styles for the page */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+            transition: filter 0.5s ease;
+        }
+
+        h1 {
+            padding: 20px;
+        }
+
+        /* Dimming overlay, now with no transparency */
+        #dimOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: black; /* Solid black color */
+            display: none;
+            z-index: 1000; /* Ensure it is on top */
+            pointer-events: auto; /* Enable interaction to detect touch/click */
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 20px;
+            z-index: 1001; /* Ensure buttons are above overlay */
+        }
+    </style>
 </head>
 <body>
  
-  <h1>GitHub page as PWA template</h1>
-  <p>
-    This is a PWA template for GitHub pages. 
-    Make sure to check the README at 
-    <a href="https://github.com/codepo8/github-page-pwa/">https://github.com/codepo8/github-page-pwa/</a> and 
-    to change the necessary settings to your needs.
-  </p>
+  <h1>Hello, World!</h1>
+<button onclick="startFullscreen()">Go Fullscreen & Dim Screen</button>
+
+<!-- Fullscreen overlay for dimming -->
+<div id="dimOverlay" onclick="hideOverlay()"></div>
+
 
   <script>
       if (navigator.serviceWorker) {
@@ -25,6 +57,59 @@
           {scope: '/WalkingApp/'}
         )
       }
+    let wakeLock = null;
+
+    // Request Wake Lock
+    async function requestWakeLock() {
+        try {
+            wakeLock = await navigator.wakeLock.request('screen');
+            console.log('Wake lock active');
+        } catch (err) {
+            console.error(`Failed to acquire wake lock: ${err.name}, ${err.message}`);
+        }
+    }
+
+    // Release Wake Lock
+    function releaseWakeLock() {
+        if (wakeLock !== null) {
+            wakeLock.release();
+            wakeLock = null;
+            console.log('Wake lock released');
+        }
+    }
+
+    // Function to go fullscreen and dim the screen
+    function startFullscreen() {
+        // Request Fullscreen
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+            document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+            document.documentElement.msRequestFullscreen();
+        }
+
+        // Show the dimming overlay
+        document.getElementById('dimOverlay').style.display = 'block';
+
+        // Request wake lock to keep the screen on
+        requestWakeLock();
+    }
+
+    // Function to hide the overlay but keep fullscreen
+    function hideOverlay() {
+        document.getElementById('dimOverlay').style.display = 'none';
+        // Wake lock remains active; fullscreen remains active
+    }
+
+    // Automatically release wake lock when page visibility changes (optional safeguard)
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+            releaseWakeLock();
+        }
+    });
   </script>
   <script src="js/app.js"></script>
 </body>
