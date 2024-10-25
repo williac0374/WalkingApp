@@ -1,108 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GitHub page as PWA template</title>
-  <link rel="canonical" href="https://williac0374.github.io/WalkingApp/" />
-  <link rel="manifest" href="/WalkingApp/manifest.webmanifest">
-  <link rel="stylesheet" href="css/styles.css">
+<head>   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet.js User Location</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
-        /* Basic styles for the page */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: white;
-            transition: filter 0.5s ease;
-        }
-
-        h1 {
-            padding: 20px;
-        }
-
-        /* Dimming overlay, now with no transparency */
-        #dimOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
+        #map {
             height: 100vh;
-            background-color: black; /* Solid black color */
-            display: none;
-            z-index: 1000; /* Ensure it is on top */
-            pointer-events: auto; /* Enable interaction to detect touch/click */
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 20px;
-            z-index: 1001; /* Ensure buttons are above overlay */
+            width: 100%;
         }
     </style>
 </head>
 <body>
- 
-  <h1>Hello, World!</h1>
-<button onclick="killScreen()">KillScreen</button>
+<div id="map"></div>
 
-<!-- Fullscreen overlay for dimming -->
-<div id="dimOverlay" onclick="hideOverlay()"></div>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    let // ZzFXMicro - Zuper Zmall Zound Zynth - v1.3.1 by Frank Force ~ 1000 bytes
+zzfxV=.3,               // volume
+zzfxX=new AudioContext, // audio context
+zzfx=                   // play sound
+(p=1,k=.05,b=220,e=0,r=0,t=.1,q=0,D=1,u=0,y=0,v=0,z=0,l=0,E=0,A=0,F=0,c=0,w=1,m=0,B=0
+,N=0)=>{let M=Math,d=2*M.PI,R=44100,G=u*=500*d/R/R,C=b*=(1-k+2*k*M.random(k=[]))*d/R,
+g=0,H=0,a=0,n=1,I=0,J=0,f=0,h=N<0?-1:1,x=d*h*N*2/R,L=M.cos(x),Z=M.sin,K=Z(x)/4,O=1+K,
+X=-2*L/O,Y=(1-K)/O,P=(1+h*L)/2/O,Q=-(h+L)/O,S=P,T=0,U=0,V=0,W=0;e=R*e+9;m*=R;r*=R;t*=
+R;c*=R;y*=500*d/R**3;A*=d/R;v*=d/R;z*=R;l=R*l|0;p*=zzfxV;for(h=e+m+r+t+c|0;a<h;k[a++]
+=f*p)++J%(100*F|0)||(f=q?1<q?2<q?3<q?Z(g**3):M.max(M.min(M.tan(g),1),-1):1-(2*g/d%2+2
+)%2:1-4*M.abs(M.round(g/d)-g/d):Z(g),f=(l?1-B+B*Z(d*a/l):1)*(f<0?-1:1)*M.abs(f)**D*(a
+<e?a/e:a<e+m?1-(a-e)/m*(1-w):a<e+m+r?w:a<h-c?(h-a-c)/t*w:0),f=c?f/2+(c>a?0:(a<h-c?1:(
+h-a)/c)*k[a-c|0]/2/p):f,N?f=W=S*T+Q*(T=U)+P*(U=f)-Y*V-X*(V=W):0),x=(b+=u+=y)*M.cos(A*
+H++),g+=x+x*E*Z(a**5),n&&++n>z&&(b+=v,C+=v,n=0),!l||++I%l||(b=C,u=G,n=n||1);p=zzfxX.
+createBuffer(1,h,R);p.getChannelData(0).set(k);b=zzfxX.createBufferSource();
+b.buffer=p;b.connect(zzfxX.destination);b.start()}
+    var firstPing=false;
+    var lat = 40.134995;
+    var lon = -91.526652;
+    const map = L.map('map').setView([lat, lon], 16);
+    var points = [{"lat": 40.13408546279508,"lon": -91.53016805648805},{"lat": 40.135135387952914,"lon": -91.53012514114381},{"lat": 40.136037654425564,"lon": -91.5301036834717},{"lat": 40.13595563069578,"lon": -91.52840852737428},{"lat": 40.135036958158445,"lon": -91.5283226966858},{"lat": 40.13405265237252,"lon": -91.52815103530884},{"lat": 40.13321598124515,"lon": -91.53012514114381},{"lat": 40.13318317040281,"lon": -91.52823686599733},{"lat": 40.132264460386075,"lon": -91.52817249298096},{"lat": 40.132264460386075,"lon": -91.53006076812746},{"lat": 40.131411361393255,"lon": -91.52825832366945},{"lat": 40.13223164908436,"lon": -91.52671337127686},{"lat": 40.131263708557434,"lon": -91.52664899826051},{"lat": 40.13219883776679,"lon": -91.52503967285156},{"lat": 40.13124730266699,"lon": -91.5249752998352},{"lat": 40.13029575424528,"lon": -91.52673482894897},{"lat": 40.12942622421124,"lon": -91.52664899826051},{"lat": 40.12936059885156,"lon": -91.5249752998352},{"lat": 40.13023012972515,"lon": -91.5249752998352},{"lat": 40.130164505141636,"lon": -91.52355909347534},{"lat": 40.13124730266699,"lon": -91.52353763580324},{"lat": 40.132215243427545,"lon": -91.52364492416382},{"lat": 40.12937700519743,"lon": -91.52353763580324},{"lat": 40.12934419250175,"lon": -91.52169227600099},{"lat": 40.12834339767418,"lon": -91.52156352996826},{"lat": 40.12840902401595,"lon": -91.52343034744264},{"lat": 40.12840902401595,"lon": -91.52501821517944},{"lat": 40.12791682490818,"lon": -91.52488946914674},{"lat": 40.127900418209876,"lon": -91.523494720459},{"lat": 40.127424622236354,"lon": -91.52343034744264},{"lat": 40.127424622236354,"lon": -91.51993274688722},{"lat": 40.12753946984524,"lon": -91.52160644531251},{"lat": 40.128359804265564,"lon": -91.52006149291992},{"lat": 40.12937700519743,"lon": -91.52004003524782},{"lat": 40.1301973174413,"lon": -91.52010440826416},{"lat": 40.130279348121185,"lon": -91.52182102203369},{"lat": 40.131181679065584,"lon": -91.52008295059204},{"lat": 40.13114886724114,"lon": -91.52169227600099},{"lat": 40.13219883776679,"lon": -91.52012586593628},{"lat": 40.13223164908436,"lon": -91.52175664901735},{"lat": 40.13318317040281,"lon": -91.52173519134523},{"lat": 40.13316676497571,"lon": -91.52343034744264},{"lat": 40.13318317040281,"lon": -91.52482509613039},{"lat": 40.13405265237252,"lon": -91.52488946914674},{"lat": 40.134069057585776,"lon": -91.52351617813112},{"lat": 40.134069057585776,"lon": -91.52169227600099},{"lat": 40.134069057585776,"lon": -91.52649879455568},{"lat": 40.135053363134084,"lon": -91.52632713317873},{"lat": 40.13498774320774,"lon": -91.52486801147462},{"lat": 40.13610327333807,"lon": -91.52471780776979},{"lat": 40.135053363134084,"lon": -91.52332305908205},{"lat": 40.135004148195264,"lon": -91.52179956436159},{"lat": 40.13498774320774,"lon": -91.52040481567384},{"lat": 40.13403624715531,"lon": -91.52040481567384},{"lat": 40.13403624715531,"lon": -91.51898860931398},{"lat": 40.13602124968752,"lon": -91.5190100669861},{"lat": 40.135036958158445,"lon": -91.51898860931398},{"lat": 40.136037654425564,"lon": -91.5204906463623},{"lat": 40.13607046388973,"lon": -91.52179956436159},{"lat": 40.136054059159605,"lon": -91.52319431304933},{"lat": 40.13716957178564,"lon": -91.5233874320984},{"lat": 40.137153167320875,"lon": -91.52194976806642},{"lat": 40.137087549422176,"lon": -91.52046918869019},{"lat": 40.13705474044906,"lon": -91.51926755905153},{"lat": 40.13831787447843,"lon": -91.5201473236084},{"lat": 40.13812102396639,"lon": -91.52179956436159},{"lat": 40.13810461973134,"lon": -91.52332305908205},{"lat": 40.138137428197524,"lon": -91.52465343475342},{"lat": 40.137235189605136,"lon": -91.52471780776979},{"lat": 40.13915448279221,"lon": -91.52476072311403},{"lat": 40.13917088677383,"lon": -91.52323722839355},{"lat": 40.1391216748171,"lon": -91.52182102203369},{"lat": 40.139236502660694,"lon": -91.5209197998047},{"lat": 40.13315035954464,"lon": -91.51894569396974},{"lat": 40.132248054737175,"lon": -91.5189027786255},{"lat": 40.13321598124515,"lon": -91.51759386062623},{"lat": 40.13231367730895,"lon": -91.51746511459352},{"lat": 40.13229727167193,"lon": -91.5160918235779},{"lat": 40.131263708557434,"lon": -91.51870965957642},{"lat": 40.13131292620502,"lon": -91.51748657226564},{"lat": 40.131362143816936,"lon": -91.51611328125001},{"lat": 40.13034497259381,"lon": -91.51870965957642},{"lat": 40.13034497259381,"lon": -91.51735782623291},{"lat": 40.13045981526841,"lon": -91.51607036590578},{"lat": 40.130443409183925,"lon": -91.51476144790651},{"lat": 40.12931137979023,"lon": -91.51864528656007},{"lat": 40.12947544318941,"lon": -91.51722908020021},{"lat": 40.1294590368673,"lon": -91.5159845352173},{"lat": 40.12852386996161,"lon": -91.51592016220093},{"lat": 40.12847465029437,"lon": -91.51722908020021},{"lat": 40.12840902401595,"lon": -91.51862382888795},{"lat": 40.12745743585868,"lon": -91.5185594558716},{"lat": 40.12753946984524,"lon": -91.51714324951173},{"lat": 40.127555876630666,"lon": -91.51585578918458},{"lat": 40.126473020298114,"lon": -91.51980400085449},{"lat": 40.12653864844569,"lon": -91.51849508285524},{"lat": 40.12658786951476,"lon": -91.51714324951173},{"lat": 40.12658786951476,"lon": -91.51587724685669},{"lat": 40.125652663107566,"lon": -91.51572704315187},{"lat": 40.125636255862794,"lon": -91.51695013046265},{"lat": 40.12555421957944,"lon": -91.518452167511},{"lat": 40.125537812310874,"lon": -91.51982545852663},{"lat": 40.124668221410914,"lon": -91.51969671249391},{"lat": 40.12473385130089,"lon": -91.51836633682251},{"lat": 40.1247666662221,"lon": -91.51720762252809},{"lat": 40.12475025876347,"lon": -91.51581287384035}];
+    // Terrain view
+    L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        maxZoom: 17,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors & <a href="https://opentopomap.org/copyright">OpenTopoMap</a>',
+    }).addTo(map);
 
+    let userMarker = L.marker([lat, lon]).addTo(map);
+    
+    // Function to update the user's location
+    function updateUserLocation(position) {
+	; // Jump 9
+        lat = position.coords.latitude;
+        lon = position.coords.longitude;
+        const accuracy = position.coords.accuracy;
+		//lat = 40.134995;
+		//lon = -91.526652;
+        // Update marker position
+        userMarker.setLatLng([lat, lon]);
+        
+        if(firstPing==false){
+			map.setView([lat, lon], map.getZoom());
+			firstPing=true;
+		}
+		checkMarkers(lat,lon,12);
 
-  <script>
-      if (navigator.serviceWorker) {
-        navigator.serviceWorker.register (
-          '/WalkingApp/sw.js',
-          {scope: '/WalkingApp/'}
-        )
-      }
-    let wakeLock = null;
+        // Optionally log the accuracy
+        console.log(`Location Accuracy: ${accuracy} meters`);
+    }
 
-    // Request Wake Lock
-    async function requestWakeLock() {
-        try {
-            wakeLock = await navigator.wakeLock.request('screen');
-            console.log('Wake lock active');
-        } catch (err) {
-            console.error(`Failed to acquire wake lock: ${err.name}, ${err.message}`);
+    // Function to handle geolocation errors
+    function handleError(error) {
+        console.error(`Geolocation error: ${error.message}`);
+    }
+
+    // Function to start watching the user's location
+    function startTracking() {
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(updateUserLocation, handleError, {
+                enableHighAccuracy: true,
+                maximumAge: 10000, // Allow cached position up to 10 seconds
+                timeout: 15000 // Timeout after 15 seconds
+            });
+        } else {
+            alert('Geolocation is not supported by this browser.');
         }
     }
 
-    // Release Wake Lock
-    function releaseWakeLock() {
-        if (wakeLock !== null) {
-            wakeLock.release();
-            wakeLock = null;
-            console.log('Wake lock released');
-        }
+    // Start tracking the user's location
+    startTracking();
+    var markers = [];
+    function allPoints(){
+  for (let i = 0; i < points.length; i++) {
+      // Create a red marker
+  markers[i] = L.circleMarker([points[i].lat,points[i].lon], {
+    color: 'blue',
+    radius: 4
+  }).addTo(map);
+  } 
+}
+allPoints()
+function checkMarkers(lat,lon,dis){
+	//alert(lon);
+	for (let i = 0; i < markers.length; i++) {
+	  if (proximity(markers[i]._latlng.lat, markers[i]._latlng.lng, lat, lon,dis)){
+	  map.removeLayer(markers[i]);
+		markers.splice(i,1)
+		zzfx(...[,,408,.01,.08,.17,,3.3,40,-31,,,,.7,,.1,,.81,.08]);
+	  }
+	}
+}
+function proximity(latA, lonA, latB, lonB, meters) {
+// Create LatLng objects for both points
+var pointA = L.latLng(latA, lonA);
+var pointB = L.latLng(latB, lonB);
+
+// Calculate the distance in meters
+var distance = pointA.distanceTo(pointB);
+
+// Return true if within 12 meters
+return distance <= meters;
+}
+// Function to detect touch events on mobile devices
+map.on('click', function(e) {
+	//zzfx(...[,,408,.01,.08,.17,,3.3,40,-31,,,,.7,,.1,,.81,.08])
+    // Check if the event is a touch event
+    if (e.originalEvent.touches) {
+        
     }
+});
+</script>
 
-    // Function to go fullscreen and dim the screen
-    function killScreen() {
-
-
-        // Show the dimming overlay
-        document.getElementById('dimOverlay').style.display = 'block';
-
-        // Request wake lock to keep the screen on
-        requestWakeLock();
-
-    }
-
-    // Function to hide the overlay but keep fullscreen
-    function hideOverlay() {
-        document.getElementById('dimOverlay').style.display = 'none';
-        // Wake lock remains active; fullscreen remains active
-    }
-
-    // Automatically release wake lock when page visibility changes (optional safeguard)
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'hidden') {
-            releaseWakeLock();
-        }
-    });
-  </script>
-  <script src="js/app.js"></script>
 </body>
 </html>
