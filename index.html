@@ -17,9 +17,6 @@
             transition: filter 0.5s ease;
         }
 
-        h1 {
-            padding: 20px;
-        }
 
         /* Dimming overlay, now with no transparency */
         #dimOverlay {
@@ -33,22 +30,15 @@
             z-index: 1000; /* Ensure it is on top */
             pointer-events: auto; /* Enable interaction to detect touch/click */
         }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 20px;
-            z-index: 1001; /* Ensure buttons are above overlay */
-        }
+	    
         #map {
             height: 100vh;
-            width: 100%;
+            width: 100vw;
         }
     </style>
 </head>
 <body>
  <div id="map"></div>
-<button onclick="killScreen()">KillScreen</button>
 
 <!-- Fullscreen overlay for dimming -->
 <div id="dimOverlay" onclick="hideOverlay()"></div>
