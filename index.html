@@ -1,11 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>   
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaflet.js User Location</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub page as PWA template</title>
+  <link rel="canonical" href="https://williac0374.github.io/WalkingApp/" />
+  <link rel="manifest" href="/WalkingApp/manifest.webmanifest">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
+        /* Basic styles for the page */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+            transition: filter 0.5s ease;
+        }
+
+        h1 {
+            padding: 20px;
+        }
+
+        /* Dimming overlay, now with no transparency */
+        #dimOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: black; /* Solid black color */
+            display: none;
+            z-index: 1000; /* Ensure it is on top */
+            pointer-events: auto; /* Enable interaction to detect touch/click */
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 20px;
+            z-index: 1001; /* Ensure buttons are above overlay */
+        }
         #map {
             height: 100vh;
             width: 100%;
@@ -13,10 +47,66 @@
     </style>
 </head>
 <body>
-<div id="map"></div>
+ <div id="map"></div>
+<button onclick="killScreen()">KillScreen</button>
 
+<!-- Fullscreen overlay for dimming -->
+<div id="dimOverlay" onclick="hideOverlay()"></div>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
+
+  <script>
+      if (navigator.serviceWorker) {
+        navigator.serviceWorker.register (
+          '/WalkingApp/sw.js',
+          {scope: '/WalkingApp/'}
+        )
+      }
+    let wakeLock = null;
+
+    // Request Wake Lock
+    async function requestWakeLock() {
+        try {
+            wakeLock = await navigator.wakeLock.request('screen');
+            console.log('Wake lock active');
+        } catch (err) {
+            console.error(`Failed to acquire wake lock: ${err.name}, ${err.message}`);
+        }
+    }
+
+    // Release Wake Lock
+    function releaseWakeLock() {
+        if (wakeLock !== null) {
+            wakeLock.release();
+            wakeLock = null;
+            console.log('Wake lock released');
+        }
+    }
+
+    // Function to go fullscreen and dim the screen
+    function killScreen() {
+
+
+        // Show the dimming overlay
+        document.getElementById('dimOverlay').style.display = 'block';
+
+        // Request wake lock to keep the screen on
+        requestWakeLock();
+
+    }
+
+    // Function to hide the overlay but keep fullscreen
+    function hideOverlay() {
+        document.getElementById('dimOverlay').style.display = 'none';
+        // Wake lock remains active; fullscreen remains active
+    }
+
+    // Automatically release wake lock when page visibility changes (optional safeguard)
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+            releaseWakeLock();
+        }
+    });
+
     let // ZzFXMicro - Zuper Zmall Zound Zynth - v1.3.1 by Frank Force ~ 1000 bytes
 zzfxV=.3,               // volume
 zzfxX=new AudioContext, // audio context
@@ -128,6 +218,5 @@ map.on('click', function(e) {
     }
 });
 </script>
-
 </body>
 </html>
