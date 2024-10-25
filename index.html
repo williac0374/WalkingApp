@@ -135,11 +135,12 @@ b.buffer=p;b.connect(zzfxX.destination);b.start()}
     }).addTo(map);
 
     let userMarker = L.marker([lat, lon]).addTo(map);
-    // Add onclick event to the marker
-userMarker.on('click', function() {
-    alert("Marker clicked!");
-    // You can also add other actions here
-});
+    function onMapClick(){
+	    alert("hello world!!!")
+    }
+
+	  // Add onclick event to the marker
+map.on('click', onMapClick);
     // Function to update the user's location
     function updateUserLocation(position) {
 	; // Jump 9
