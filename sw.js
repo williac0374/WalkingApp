@@ -1,6 +1,6 @@
 var GHPATH = '/WalkingApp';
 var APP_PREFIX = 'gppwa_';
-var VERSION = 'version_006';
+var VERSION = 'version_007';
 var URLS = [    
   `${GHPATH}/`,
   `${GHPATH}/index.html`,
