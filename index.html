@@ -44,7 +44,7 @@
 <body>
  
   <h1>Hello, World!</h1>
-<button onclick="startFullscreen()">Go Fullscreen & Dim Screen</button>
+<button onclick="killScreen()">Go Fullscreen & Dim Screen</button>
 
 <!-- Fullscreen overlay for dimming -->
 <div id="dimOverlay" onclick="hideOverlay()"></div>
@@ -79,17 +79,8 @@
     }
 
     // Function to go fullscreen and dim the screen
-    function startFullscreen() {
-        // Request Fullscreen
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        } else if (document.documentElement.mozRequestFullScreen) { // Firefox
-            document.documentElement.mozRequestFullScreen();
-        } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, and Opera
-            document.documentElement.webkitRequestFullscreen();
-        } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
-            document.documentElement.msRequestFullscreen();
-        }
+    function killScreen() {
+
 
         // Show the dimming overlay
         document.getElementById('dimOverlay').style.display = 'block';
