@@ -129,6 +129,8 @@ b.buffer=p;b.connect(zzfxX.destination);b.start()}
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors & <a href="https://opentopomap.org/copyright">OpenTopoMap</a>',
     }).addTo(map);
     let userMarker = L.marker([lat, lon]).addTo(map);
+	  // Create and bind the popup
+  userMarker.bindPopup("v1").openPopup();
     // Function to update the user's location
     function updateUserLocation(position) {
 	; // Jump 9
