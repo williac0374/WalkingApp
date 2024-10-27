@@ -192,6 +192,8 @@ function checkMarkers(lat,lon,dis){
 	  map.removeLayer(markers[i]);
 		markers.splice(i,1)
 		zzfx(...[,,408,.01,.08,.17,,3.3,40,-31,,,,.7,,.1,,.81,.08]);
+		  hideOverlay();
+		  map.setView([lat, lon], map.getZoom());
 	  }
 	}
 }
