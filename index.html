@@ -137,7 +137,7 @@ b.buffer=p;b.connect(zzfxX.destination);b.start()}
         let pathPoints = [];
         // Create a polyline with dotted line style
         const dottedLine = L.polyline([], { color: 'blue', dashArray: '5, 5' }).addTo(map);
-
+var score = 0;
     // Function to update the user's location
     function updateUserLocation(position) {
 	; // Jump 9
@@ -201,6 +201,8 @@ function checkMarkers(lat,lon,dis){
 		markers.splice(i,1)
 		zzfx(...[,,408,.01,.08,.17,,3.3,40,-31,,,,.7,,.1,,.81,.08]);
 		  hideOverlay();
+		      score++;
+    userMarker.setPopupContent('targets hit : '+ score)
 		  map.setView([lat, lon], map.getZoom());
 	  }
 	}
