@@ -133,11 +133,19 @@ b.buffer=p;b.connect(zzfxX.destination);b.start()}
     let userMarker = L.marker([lat, lon]).addTo(map);
 	  // Create and bind the popup
   userMarker.bindPopup("walk to target").openPopup();
+	   // Create an array to hold the path points
+        let pathPoints = [];
+        // Create a polyline with dotted line style
+        const dottedLine = L.polyline([], { color: 'blue', dashArray: '5, 5' }).addTo(map);
+
     // Function to update the user's location
     function updateUserLocation(position) {
 	; // Jump 9
         lat = position.coords.latitude;
         lon = position.coords.longitude;
+	  // Add the new point to the path
+            pathPoints.push([lat, lon]);
+            dottedLine.setLatLngs(pathPoints);  
         const accuracy = position.coords.accuracy;
 		//lat = 40.134995;
 		//lon = -91.526652;
