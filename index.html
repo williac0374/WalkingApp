@@ -132,7 +132,7 @@ b.buffer=p;b.connect(zzfxX.destination);b.start()}
     }).addTo(map);
     let userMarker = L.marker([lat, lon]).addTo(map);
 	  // Create and bind the popup
-  userMarker.bindPopup("version 22").openPopup();
+  userMarker.bindPopup("accuracy ?").openPopup();
 	   // Create an array to hold the path points
         let pathPoints = [];
         // Create a polyline with dotted line style
@@ -147,7 +147,8 @@ var score = 0;
             pathPoints.push([lat, lon]);
             dottedLine.setLatLngs(pathPoints);  
         const accuracy = position.coords.accuracy;
-		//lat = 40.134995;
+	userMarker.setPopupContent('accuracy: '+ accuracy.toString())
+	    //lat = 40.134995;
 		//lon = -91.526652;
         // Update marker position
         userMarker.setLatLng([lat, lon]);
