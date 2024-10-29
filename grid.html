@@ -1,1 +1,35 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Grid</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 100vh; }
+        .grid-line { color: #888888; weight: 1; opacity: 0.7; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize map
+        var map = L.map('map').fitWorld();
+
+        // Set up tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+        }).addTo(map);
+
+        // Locate and center on user
+        map.locate({setView: true, maxZoom: 18});
+
+        // Function to draw the grid
+        function drawGrid(centerLatLng) {
+            const gridSize = 10; // Grid size in meters
+            const gridExtent = 500; // Half of 1000 meters
+            const startLatLng = L.latLng(
+                centerLatLng.lat - (gridExtent / 111320), // Convert meters to degrees
+                centerLatLng.lng 
