@@ -151,6 +151,7 @@ var score = 0;
 	    //lat = 40.134995;
 		//lon = -91.526652;
         // Update marker position
+	    if(accuracy<20){
         userMarker.setLatLng([lat, lon]);
         
         if(firstPing==false){
@@ -158,7 +159,7 @@ var score = 0;
 			firstPing=true;
 		}
 		checkMarkers(lat,lon,12);
-
+	    }
         // Optionally log the accuracy
         console.log(`Location Accuracy: ${accuracy} meters`);
     }
