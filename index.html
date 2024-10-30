@@ -143,11 +143,13 @@ var score = 0;
 	; // Jump 9
         lat = position.coords.latitude;
         lon = position.coords.longitude;
+	     const accuracy = position.coords.accuracy;
+	    if(accuracy<20){
 	  // Add the new point to the path
             pathPoints.push([lat, lon]);
             dottedLine.setLatLngs(pathPoints);  
-        const accuracy = position.coords.accuracy;
-	userMarker.setPopupContent('accuracy: '+ accuracy.toString())
+	    }
+	    userMarker.setPopupContent('accuracy: '+ accuracy.toString())
 	    //lat = 40.134995;
 		//lon = -91.526652;
         // Update marker position
