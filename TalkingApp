@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Call Simulator</title>
+</head>
+<body>
+
+    <h1>Phone Call Simulator</h1>
+    <button id="speakButton">Hold to Speak</button>
+    <p id="responseDisplay">Response will appear here...</p>
+
+    <script>
+        const button = document.getElementById('speakButton');
+        const responseDisplay = document.getElementById('responseDisplay');
+        let recognition;
+        
+        // Speech Recognition Setup
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = function(event) {
+                const userSpeech = event.results[0][0].transcript;
+                console.log("User said:", userSpeech);
+                
+                // Call Perchance to get a random response (example placeholder URL)
+                fetch('https://perchance.org/api/your-generator-name')  // Replace with actual Perchance URL
+                    .then(response => response.json())
+                    .then(data => {
+                        const randomResponse = data.generated_text;  // Update based on Perchance response format
+                        responseDisplay.innerText = randomResponse;
+                        speakResponse(randomResponse);
+                    });
+            };
+        } else {
+            alert("Speech Recognition is not supported in this browser.");
+        }
+
+        // Text-to-Speech
+        function speakResponse(text) {
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            synth.speak(utterance);
+        }
+
+        // Button Press Events
+        button.onmousedown = () => {
+            recognition.start();
+        };
+
+        button.onmouseup = () => {
+            recognition.stop();
+        };
+    </script>
+</body>
+</html>
